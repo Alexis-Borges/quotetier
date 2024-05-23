@@ -8,6 +8,27 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/quotes', async (req, res) => {
+  try {
+    const quotes = await prisma.quote.findMany();
+    res.json(quotes);
+  } catch (error) {
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
+app.post('/quotes', async (req, res) => {
+  const { author, content } = req.body;
+  try {
+    const newQuote = await prisma.quote.create({
+      data: { author, content, likes: 0, dislikes: 0 },
+    });
+    res.json(newQuote);
+  } catch (error) {
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
 app.post('/quotes/:id/like', async (req, res) => {
   const { id } = req.params;
   try {
@@ -34,7 +55,7 @@ app.post('/quotes/:id/dislike', async (req, res) => {
     }
     const updatedQuote = await prisma.quote.update({
       where: { id: Number(id) },
-      data: { likes: quote.likes - 1 },
+      data: { dislikes: quote.dislikes + 1 },
     });
     res.json(updatedQuote);
   } catch (error) {
