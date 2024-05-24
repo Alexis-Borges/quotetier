@@ -26,7 +26,7 @@ function AddQuoteForm({ onAddQuote }) {
      return;
    }
 
-   const regex = /^[a-z0-9]+$/i;
+   const regex = /^[a-z0-9 ]+$/i;
    if (!regex.test(quote.text) || !regex.test(quote.author)) {
      alert('Seuls les chiffres et les lettres sont autorisés.');
      return;
@@ -56,22 +56,22 @@ function AddQuoteForm({ onAddQuote }) {
   <div className="flex flex-col items-center pt-10 overflow-hidden">
     <div className="flex flex-col justify-center items-center w-[550px] space-y-2"> 
        <Form.Root onSubmit={handleSubmit}>
-        <Form.Field className="grid mb-[5px]" name="text"> 
-          <Form.Label className="text-[20px] font-medium leading-[60px] text-violet11">Texte de la citation</Form.Label> 
-              <Form.Control asChild>
+        <Form.Field className="grid mb-[5px]" name="author"> 
+          <Form.Label className="text-[20px] font-medium leading-[60px] text-violet11">Auteur de la citation</Form.Label>   
+            <Form.Control asChild>
             <input
-              value={quote.text}
+              value={quote.author}
               onChange={handleChange}
               className="text-black box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[60px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[20px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
               required
             />
           </Form.Control>
         </Form.Field>
-        <Form.Field className="grid mb-[5px]" name="author"> 
-          <Form.Label className="text-[20px] font-medium leading-[60px] text-violet11">Auteur de la citation</Form.Label>   
-            <Form.Control asChild>
+        <Form.Field className="grid mb-[5px]" name="text"> 
+          <Form.Label className="text-[20px] font-medium leading-[60px] text-violet11">Texte de la citation</Form.Label> 
+              <Form.Control asChild>
             <input
-              value={quote.author}
+              value={quote.text}
               onChange={handleChange}
               className="text-black box-border w-full bg-blackA2 shadow-blackA6 inline-flex h-[60px] appearance-none items-center justify-center rounded-[4px] px-[10px] text-[20px] leading-none shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA6"
               required
